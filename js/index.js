@@ -11,10 +11,10 @@ function sendMail(){
 
     emailjs.send(serviceID,templateID, params)
     .then((res)=>{
-            document.getElementById("name").value = "name";
-            document.getElementById("email").value = "email";
-            document.getElementById("message").value= "message";
-            document.getElementById("phone").value= "phone";
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value= "";
+            document.getElementById("phone").value= "";
             console.log(rs);
             alert("your message sent successfully");
         })
