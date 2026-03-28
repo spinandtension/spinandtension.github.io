@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin & Tension Flyer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .flyer {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            background: #1a3933;
+            color: #e0e0e0;
+            padding: 0.6in;
+            position: relative;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 0.25in;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-container {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        
+        .logo-text {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: #e0e0e0;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .divider {
+            width: 150px;
+            height: 3px;
+            background: #e0e0e0;
+            margin: 0 auto 0.2in;
+        }
+        
+        .main-pitch {
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 0.5in;
+            padding: 0 0.5in;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .highlight {
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        
+        .services-section {
+            background: #1a3933;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 0.5in;
+            border: 2px solid #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #e0e0e0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .service-item {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .price {
+            color: #e0e0e0;
+            font-weight: 700;
+        }
+        
+        .turnaround {
+            text-align: center;
+            font-size: 16px;
+            padding: 15px;
+            background: #1a3933;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: 700;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .contact-section {
+            background: #1a3933;
+            border-radius: 15px;
+            padding: 22px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .contact-info {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .contact-item {
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .contact-label {
+            font-weight: 700;
+        }
+        
+        .bottom-logo {
+            text-align: center;
+            margin-top: 0.15in;
+            margin-bottom: 0.1in;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bottom-logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: .05in;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 0;
+            font-size: 13px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .flyer {
+                margin: 0;
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer">
+        <div class="header">
+            <div class="logo-container">
+                <img class="masthead-avatar mb-5" src="Logos/Logo_Cropped.png" alt="Spin & Tension tennis racquet stringing service logo" />
+                <div class="logo-text">SPIN & TENSION</div>
+            </div>
+            <div class="tagline">Professional Racquet Stringing in Washington, DC</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="main-pitch">
+            Tired of searching for reliable racquet stringing in the city? 
+            We're your <span class="highlight">solution!</span> With 
+            <span class="highlight">13 years of experience</span> and a commitment to 
+            <span class="highlight">fast, quality service</span>, I aim to provide reliable racquet sports services tailored to your game.
+        </div>
+        
+        <div class="services-section">
+            <div class="section-title">Our Services</div>
+            
+            <div class="services-grid">
+                <div class="service-item">
+                    <strong>Synthetic Strings</strong>
+                </div>
+                <div class="service-item">
+                    <strong>Multifilament/Polyester</strong>
+                </div>
+                <div class="service-item">
+                    <strong>Premium Multifilament</strong>
+                </div>
+                <div class="service-item">
+                    <strong>Natural Gut</strong>
+                </div>
+                <div class="service-item">
+                    <strong>Overgrips</strong>
+                </div>
+                <div class="service-item">
+                    <strong>Base Grips</strong>
+                </div>
+            </div>
+            
+            <div class="turnaround">
+                We strive for a two-day turnaround time!
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <div class="contact-title">Get In Touch</div>
+            <div class="contact-info">
+                <span class="contact-item">
+                    <span class="contact-label">Email:</span> spinandtension@gmail.com
+                </span>
+                <span class="contact-item">
+                    <span class="contact-label">Phone:</span> (202) 730-9443
+                </span>
+                <span class="contact-item">
+                    <span class="contact-label">Web:</span> spinandtension.github.io
+                </span>
+            </div>
+        </div>
+        
+        <div class="bottom-logo">
+            <!-- Add your logo image here -->
+            <!-- <img src="your-logo.png" alt="Spin & Tension Logo"> -->
+        </div>
+        
+        <div class="footer">
+            Tennis • Racquetball • Squash | String Recommendations Available
+        </div>
+    </div>
+</body>
+</html>
