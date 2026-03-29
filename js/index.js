@@ -73,18 +73,8 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-// Send email via EmailJS
+// Send email via FormSubmit AJAX (no domain restrictions, works on GitHub Pages)
 function sendMail() {
-    var params = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value,
-        phone: document.getElementById("phone").value
-    };
-
-    const serviceID = "service_vziw9qr";
-    const templateID = "template_0lfmwhl";
-
     const submitBtn = document.getElementById("submitButton");
     const successMsg = document.getElementById("submitSuccessMessage");
     const errorMsg = document.getElementById("submitErrorMessage");
@@ -93,38 +83,44 @@ function sendMail() {
     submitBtn.classList.add("disabled");
     submitBtn.innerText = "Sending...";
 
-    emailjs.send(serviceID, templateID, params)
-        .then((res) => {
-            // Clear the form fields
-            document.getElementById("name").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("message").value = "";
-            document.getElementById("phone").value = "";
-
-            // Show success message, hide error message
-            successMsg.classList.remove("d-none");
-            errorMsg.classList.add("d-none");
-
-            // Reset button text
-            submitBtn.innerText = "Send";
-            submitBtn.classList.remove("disabled");
-
-            // Hide the success message after 5 seconds
-            setTimeout(() => {
-                successMsg.classList.add("d-none");
-            }, 5000);
-
-            console.log(res);
+    fetch("https://formsubmit.co/ajax/spinandtension@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            message: document.getElementById("message").value
         })
-        .catch((err) => {
-            // Show error message, hide success message
-            errorMsg.classList.remove("d-none");
-            successMsg.classList.add("d-none");
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Clear form fields
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("message").value = "";
 
-            // Reset button
-            submitBtn.innerText = "Send";
-            submitBtn.classList.remove("disabled");
+        // Show success, hide error
+        successMsg.classList.remove("d-none");
+        errorMsg.classList.add("d-none");
 
-            console.log(err);
-        });
+        // Reset button
+        submitBtn.innerText = "Send";
+        submitBtn.classList.remove("disabled");
+
+        // Hide success message after 5 seconds
+        setTimeout(() => successMsg.classList.add("d-none"), 5000);
+    })
+    .catch(err => {
+        // Show error, hide success
+        errorMsg.classList.remove("d-none");
+        successMsg.classList.add("d-none");
+
+        // Reset button
+        submitBtn.innerText = "Send";
+        submitBtn.classList.remove("disabled");
+
+        console.log(err);
+    });
 }
