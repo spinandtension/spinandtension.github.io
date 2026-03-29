@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-// Send email via FormSubmit AJAX (no domain restrictions, works on GitHub Pages)
+// Send email via Web3Forms
 function sendMail() {
     const submitBtn = document.getElementById("submitButton");
     const successMsg = document.getElementById("submitSuccessMessage");
@@ -83,10 +83,11 @@ function sendMail() {
     submitBtn.classList.add("disabled");
     submitBtn.innerText = "Sending...";
 
-    fetch("https://formsubmit.co/ajax/spinandtension@gmail.com", {
+    fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+            access_key: "c09219cd-8773-4882-baa1-8634a0ef8423",
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
             phone: document.getElementById("phone").value,
@@ -95,22 +96,26 @@ function sendMail() {
     })
     .then(res => res.json())
     .then(data => {
-        // Clear form fields
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("phone").value = "";
-        document.getElementById("message").value = "";
+        if (data.success) {
+            // Clear form fields
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("message").value = "";
 
-        // Show success, hide error
-        successMsg.classList.remove("d-none");
-        errorMsg.classList.add("d-none");
+            // Show success, hide error
+            successMsg.classList.remove("d-none");
+            errorMsg.classList.add("d-none");
 
-        // Reset button
-        submitBtn.innerText = "Send";
-        submitBtn.classList.remove("disabled");
+            // Reset button
+            submitBtn.innerText = "Send";
+            submitBtn.classList.remove("disabled");
 
-        // Hide success message after 5 seconds
-        setTimeout(() => successMsg.classList.add("d-none"), 5000);
+            // Hide success message after 5 seconds
+            setTimeout(() => successMsg.classList.add("d-none"), 5000);
+        } else {
+            throw new Error(data.message);
+        }
     })
     .catch(err => {
         // Show error, hide success
