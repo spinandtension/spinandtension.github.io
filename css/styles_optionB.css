@@ -482,6 +482,11 @@ progress {
   display: none !important;
 }
 
+.phone-link {
+  color: #E6E6E6; /* or whatever visible color you want */
+  text-decoration: none;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
