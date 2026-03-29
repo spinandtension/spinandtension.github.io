@@ -29,8 +29,6 @@ window.addEventListener('DOMContentLoaded', event => {
     document.addEventListener('scroll', navbarShrink);
 
     // --- Custom scroll-based active nav link tracker ---
-    // More reliable than Bootstrap ScrollSpy for tall single-page layouts.
-    // Marks the nav link active whose section is currently nearest the top of the viewport.
     const sections = document.querySelectorAll('section[id], header[id]');
     const navLinks = document.querySelectorAll('#navbarResponsive .nav-link');
 
@@ -40,8 +38,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
-            // Section is considered "active" once its top edge is within 
-            // the top half of the viewport (accounting for fixed navbar height)
             if (sectionTop <= navHeight + 80) {
                 currentSection = section.getAttribute('id');
             }
@@ -59,7 +55,6 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
-    // Run on scroll and on load
     document.addEventListener('scroll', updateActiveLink);
     updateActiveLink();
 
@@ -90,14 +85,46 @@ function sendMail() {
     const serviceID = "service_vziw9qr";
     const templateID = "template_0lfmwhl";
 
+    const submitBtn = document.getElementById("submitButton");
+    const successMsg = document.getElementById("submitSuccessMessage");
+    const errorMsg = document.getElementById("submitErrorMessage");
+
+    // Disable button while sending to prevent double submissions
+    submitBtn.classList.add("disabled");
+    submitBtn.innerText = "Sending...";
+
     emailjs.send(serviceID, templateID, params)
         .then((res) => {
+            // Clear the form fields
             document.getElementById("name").value = "";
             document.getElementById("email").value = "";
             document.getElementById("message").value = "";
             document.getElementById("phone").value = "";
+
+            // Show success message, hide error message
+            successMsg.classList.remove("d-none");
+            errorMsg.classList.add("d-none");
+
+            // Reset button text
+            submitBtn.innerText = "Send";
+            submitBtn.classList.remove("disabled");
+
+            // Hide the success message after 5 seconds
+            setTimeout(() => {
+                successMsg.classList.add("d-none");
+            }, 5000);
+
             console.log(res);
-            alert("Your message was sent successfully!");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            // Show error message, hide success message
+            errorMsg.classList.remove("d-none");
+            successMsg.classList.add("d-none");
+
+            // Reset button
+            submitBtn.innerText = "Send";
+            submitBtn.classList.remove("disabled");
+
+            console.log(err);
+        });
 }
