@@ -482,8 +482,17 @@ progress {
   display: none !important;
 }
 
+.email-link {
+  color: #b9b7af; /* or whatever color you choose */
+  text-decoration: none;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
 .phone-link {
-  color: #E6E6E6; /* or whatever visible color you want */
+  color: #b9b7af; /* or whatever visible color you want */
   text-decoration: none;
 }
 
