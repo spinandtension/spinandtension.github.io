@@ -12,9 +12,7 @@ window.addEventListener('DOMContentLoaded', event => {
     // Navbar shrink function
     var navbarShrink = function () {
         const navbarCollapsible = document.body.querySelector('#mainNav');
-        if (!navbarCollapsible) {
-            return;
-        }
+        if (!navbarCollapsible) { return; }
         if (window.scrollY === 0) {
             navbarCollapsible.classList.remove('navbar-shrink');
         } else {
@@ -22,10 +20,7 @@ window.addEventListener('DOMContentLoaded', event => {
         }
     };
 
-    // Shrink the navbar on load
     navbarShrink();
-
-    // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
     // --- Custom scroll-based active nav link tracker ---
@@ -35,19 +30,15 @@ window.addEventListener('DOMContentLoaded', event => {
     function updateActiveLink() {
         const navHeight = document.querySelector('#mainNav').offsetHeight;
         let currentSection = '';
-
         sections.forEach(section => {
-            const sectionTop = section.getBoundingClientRect().top;
-            if (sectionTop <= navHeight + 80) {
+            if (section.getBoundingClientRect().top <= navHeight + 80) {
                 currentSection = section.getAttribute('id');
             }
         });
-
         navLinks.forEach(link => {
             link.classList.remove('active');
             const parentLi = link.closest('li');
             if (parentLi) parentLi.classList.remove('active');
-
             if (link.getAttribute('href') === '#' + currentSection) {
                 link.classList.add('active');
                 if (parentLi) parentLi.classList.add('active');
@@ -73,59 +64,70 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-// Send email via Web3Forms
+// Send email via Web3Forms with client-side validation
 function sendMail() {
+    const form = document.getElementById("contactForm");
     const submitBtn = document.getElementById("submitButton");
     const successMsg = document.getElementById("submitSuccessMessage");
     const errorMsg = document.getElementById("submitErrorMessage");
 
-    // Disable button while sending to prevent double submissions
+    // --- Client-side validation ---
+    const name    = document.getElementById("name").value.trim();
+    const email   = document.getElementById("email").value.trim();
+    const phone   = document.getElementById("phone").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    // Mark form as validated so Bootstrap shows invalid states
+    form.classList.add("was-validated");
+
+    // Check all fields are filled and email looks valid
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !email || !emailValid || !phone || !message) {
+        return; // Stop here — Bootstrap will highlight the empty/invalid fields
+    }
+
+    // All good — disable button and send
     submitBtn.classList.add("disabled");
     submitBtn.innerText = "Sending...";
+    successMsg.classList.add("d-none");
+    errorMsg.classList.add("d-none");
 
     fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             access_key: "c09219cd-8773-4882-baa1-8634a0ef8423",
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
-            message: document.getElementById("message").value
+            name:    name,
+            email:   email,
+            phone:   phone,
+            message: message
         })
     })
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            // Clear form fields
+            // Clear form and reset validation state
             document.getElementById("name").value = "";
             document.getElementById("email").value = "";
             document.getElementById("phone").value = "";
             document.getElementById("message").value = "";
+            form.classList.remove("was-validated");
 
-            // Show success, hide error
             successMsg.classList.remove("d-none");
             errorMsg.classList.add("d-none");
-
-            // Reset button
             submitBtn.innerText = "Send";
             submitBtn.classList.remove("disabled");
 
-            // Hide success message after 5 seconds
             setTimeout(() => successMsg.classList.add("d-none"), 5000);
         } else {
             throw new Error(data.message);
         }
     })
     .catch(err => {
-        // Show error, hide success
         errorMsg.classList.remove("d-none");
         successMsg.classList.add("d-none");
-
-        // Reset button
         submitBtn.innerText = "Send";
         submitBtn.classList.remove("disabled");
-
         console.log(err);
     });
 }
