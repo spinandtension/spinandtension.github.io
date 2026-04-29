@@ -482,6 +482,9 @@ progress {
   display: none !important;
 }
 
+.white-text {
+  color: #fff;
+}
 .email-link {
   color: #b9b7af; /* or whatever color you choose */
   text-decoration: none;
@@ -10853,7 +10856,10 @@ html {
 
 /* --- Page sections --- */
 .page-section {
-  padding: 5rem 0;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
 }
 .page-section .page-section-heading {
   font-size: 1.6rem;
