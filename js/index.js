@@ -7,6 +7,23 @@
 // Scripts
 //
 
+// ---------------------------------------------
+// Service notice popup — shows automatically on page load
+// Enable/disable it directly in index.html (no JS edits needed):
+//   <div id="serviceNoticeModal" data-notice-enabled="true">   <- change to "false" to turn off
+// Edit the message text in index.html inside <p id="serviceNoticeText">
+// ---------------------------------------------
+window.addEventListener('DOMContentLoaded', () => {
+    const noticeEl = document.getElementById('serviceNoticeModal');
+    if (!noticeEl) { return; }
+
+    const isEnabled = noticeEl.dataset.noticeEnabled === 'true';
+    if (!isEnabled) { return; }
+
+    const noticeModal = new bootstrap.Modal(noticeEl);
+    noticeModal.show();
+});
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
