@@ -10874,6 +10874,12 @@ html {
     line-height: 2.5rem;
   }
 }
+@media (max-width: 767px) {
+  .page-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
 
 /* --- Divider: slim with green accent --- */
 .divider-custom {
